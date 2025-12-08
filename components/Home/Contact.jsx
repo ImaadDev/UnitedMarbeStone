@@ -8,21 +8,33 @@ export default function Contact() {
   const pathname = usePathname();
   const isArabic = pathname?.startsWith("/ar");
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
   // TRANSLATIONS
   const text = {
     sub: isArabic ? "ابدأ مشروعك" : "Start Your Project",
     title: isArabic ? "تواصل معنا" : "Get in Touch",
-    desc: isArabic 
+    desc: isArabic
       ? "هل لديك مشروع في ذهنك؟ نحن هنا لتحويل رؤيتك إلى تحفة حجرية. تفضل بزيارتنا أو راسلنا."
       : "Have a project in mind? We are here to turn your vision into a stone masterpiece. Visit us or drop a line.",
-    
+
     // Form Labels
     name: isArabic ? "الاسم الكامل" : "Full Name",
     email: isArabic ? "البريد الإلكتروني" : "Email Address",
     phone: isArabic ? "رقم الهاتف" : "Phone Number",
     message: isArabic ? "تفاصيل المشروع" : "Project Details",
     submit: isArabic ? "إرسال الطلب" : "Send Inquiry",
-    
+    sending: isArabic ? "جاري الإرسال..." : "Sending...",
+    success: isArabic ? "تم الإرسال بنجاح!" : "Message sent successfully!",
+    error: isArabic ? "حدث خطأ، يرجى المحاولة مرة أخرى" : "Error occurred, please try again",
+
     // Contact Info
     address_label: isArabic ? "العنوان" : "Location",
     address: isArabic ? "شارع التخصصي، الرياض، المملكة العربية السعودية" : "Takhassusi St, Riyadh, Saudi Arabia",
@@ -30,11 +42,43 @@ export default function Contact() {
     email_label: isArabic ? "البريد" : "Email",
   };
 
-  // FORM HANDLER (Demo)
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your form logic here
-    alert(isArabic ? "تم الإرسال!" : "Sent!");
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: `${formData.message}\n\nPhone: ${formData.phone}`,
+          isArabic
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -141,60 +185,89 @@ export default function Contact() {
             RIGHT: MINIMALIST FORM
            ======================= */}
         <div className="lg:pl-12">
-           <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-              
-              <ScrollBasedAnimation direction="left" delay={0.2}>
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    placeholder={text.name}
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder:text-gray-600 focus:border-[#f7951e] focus:outline-none transition-colors duration-300"
-                  />
-                </div>
-              </ScrollBasedAnimation>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
 
-              <ScrollBasedAnimation direction="left" delay={0.3}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="relative">
-                    <input 
-                      type="email" 
-                      placeholder={text.email}
-                      className="w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder:text-gray-600 focus:border-[#f7951e] focus:outline-none transition-colors duration-300"
-                    />
-                  </div>
-                  <div className="relative">
-                    <input 
-                      type="tel" 
-                      placeholder={text.phone}
-                      className="w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder:text-gray-600 focus:border-[#f7951e] focus:outline-none transition-colors duration-300"
-                    />
-                  </div>
-                </div>
-              </ScrollBasedAnimation>
+               <ScrollBasedAnimation direction="left" delay={0.2}>
+                 <div className="relative">
+                   <input
+                     type="text"
+                     name="name"
+                     value={formData.name}
+                     onChange={handleChange}
+                     placeholder={text.name}
+                     required
+                     className="w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder:text-gray-600 focus:border-[#f7951e] focus:outline-none transition-colors duration-300"
+                   />
+                 </div>
+               </ScrollBasedAnimation>
 
-              <ScrollBasedAnimation direction="left" delay={0.4}>
-                <div className="relative">
-                  <textarea 
-                    rows={4}
-                    placeholder={text.message}
-                    className="w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder:text-gray-600 focus:border-[#f7951e] focus:outline-none transition-colors duration-300 resize-none"
-                  />
-                </div>
-              </ScrollBasedAnimation>
+               <ScrollBasedAnimation direction="left" delay={0.3}>
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                   <div className="relative">
+                     <input
+                       type="email"
+                       name="email"
+                       value={formData.email}
+                       onChange={handleChange}
+                       placeholder={text.email}
+                       required
+                       className="w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder:text-gray-600 focus:border-[#f7951e] focus:outline-none transition-colors duration-300"
+                     />
+                   </div>
+                   <div className="relative">
+                     <input
+                       type="tel"
+                       name="phone"
+                       value={formData.phone}
+                       onChange={handleChange}
+                       placeholder={text.phone}
+                       className="w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder:text-gray-600 focus:border-[#f7951e] focus:outline-none transition-colors duration-300"
+                     />
+                   </div>
+                 </div>
+               </ScrollBasedAnimation>
 
-              <ScrollBasedAnimation direction="up" delay={0.5}>
-                <button 
-                  type="submit"
-                  className="group mt-8 w-full md:w-auto bg-white text-black px-12 py-5 font-bold uppercase tracking-widest hover:bg-[#f7951e] hover:text-white transition-all duration-300 flex items-center justify-center gap-4"
-                >
-                  <span>{text.submit}</span>
-                  <svg className={`w-5 h-5 transform transition-transform duration-300 ${isArabic ? 'rotate-180 group-hover:-translate-x-2' : 'group-hover:translate-x-2'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-              </ScrollBasedAnimation>
+               <ScrollBasedAnimation direction="left" delay={0.4}>
+                 <div className="relative">
+                   <textarea
+                     rows={4}
+                     name="message"
+                     value={formData.message}
+                     onChange={handleChange}
+                     placeholder={text.message}
+                     required
+                     className="w-full bg-transparent border-b border-white/20 py-4 text-lg text-white placeholder:text-gray-600 focus:border-[#f7951e] focus:outline-none transition-colors duration-300 resize-none"
+                   />
+                 </div>
+               </ScrollBasedAnimation>
 
-           </form>
+               {/* Status Messages */}
+               {submitStatus && (
+                 <div className={`text-center py-2 px-4 rounded ${
+                   submitStatus === 'success'
+                     ? 'bg-green-100 text-green-800 border border-green-200'
+                     : 'bg-red-100 text-red-800 border border-red-200'
+                 }`}>
+                   {submitStatus === 'success' ? text.success : text.error}
+                 </div>
+               )}
+
+               <ScrollBasedAnimation direction="up" delay={0.5}>
+                 <button
+                   type="submit"
+                   disabled={isSubmitting}
+                   className="group mt-8 w-full md:w-auto bg-white text-black px-12 py-5 font-bold uppercase tracking-widest hover:bg-[#f7951e] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-4"
+                 >
+                   <span>{isSubmitting ? text.sending : text.submit}</span>
+                   {!isSubmitting && (
+                     <svg className={`w-5 h-5 transform transition-transform duration-300 ${isArabic ? 'rotate-180 group-hover:-translate-x-2' : 'group-hover:translate-x-2'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                     </svg>
+                   )}
+                 </button>
+               </ScrollBasedAnimation>
+
+            </form>
         </div>
 
       </div>

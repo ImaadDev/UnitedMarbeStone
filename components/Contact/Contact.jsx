@@ -16,20 +16,53 @@ export default function ContactPage() {
   });
 
   const [focusedField, setFocusedField] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(isArabic ? "تم استلام رسالتك" : "Message Sent");
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          isArabic
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const text = {
     label: isArabic ? "تواصل معنا" : "Get In Touch",
     title: isArabic ? "لنبدأ الحوار" : "Let's Build Together",
-    desc: isArabic 
+    desc: isArabic
       ? "فريقنا الهندسي جاهز لتحويل رؤيتك إلى واقع ملموس. تفضل بزيارتنا أو راسلنا."
       : "Our engineering team is ready to translate your vision into reality. Visit our studio or drop us a line.",
     name: isArabic ? "الاسم" : "Name",
@@ -37,6 +70,9 @@ export default function ContactPage() {
     phone: isArabic ? "الهاتف" : "Phone",
     message: isArabic ? "الرسالة" : "Message",
     btn: isArabic ? "إرسال" : "Send",
+    sending: isArabic ? "جاري الإرسال..." : "Sending...",
+    success: isArabic ? "تم الإرسال بنجاح!" : "Message sent successfully!",
+    error: isArabic ? "حدث خطأ، يرجى المحاولة مرة أخرى" : "Error occurred, please try again",
     address: isArabic ? "طريق التخصصي، الرياض" : "Takhassusi Rd, Riyadh",
     contact_email: "info@unitedstone.com",
     contact_phone: "+966 50 950 2502"
@@ -166,20 +202,34 @@ export default function ContactPage() {
                     <div className={`absolute bottom-0 left-0 h-[2px] bg-[#f7951e] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${focusedField === "message" ? "w-full" : "w-0"}`} />
                 </ScrollBasedAnimation>
 
+                {/* Status Messages */}
+                {submitStatus && (
+                  <div className={`text-center py-3 px-6 rounded-lg border ${
+                    submitStatus === 'success'
+                      ? 'bg-green-50 text-green-800 border-green-200'
+                      : 'bg-red-50 text-red-800 border-red-200'
+                  }`}>
+                    {submitStatus === 'success' ? text.success : text.error}
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <ScrollBasedAnimation direction="up" delay={0.6}>
-                    <button 
+                    <button
                         type="submit"
-                        className="group flex items-center gap-6 text-xl font-bold uppercase tracking-widest text-black hover:text-[#f7951e] transition-colors duration-300 mt-4"
+                        disabled={isSubmitting}
+                        className="group flex items-center gap-6 text-xl font-bold uppercase tracking-widest text-black hover:text-[#f7951e] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 mt-4"
                     >
-                        <span>{text.btn}</span>
-                        <span className={`w-16 h-[1px] bg-black group-hover:bg-[#f7951e] transition-all duration-300 group-hover:w-24`} />
-                        <svg 
-                          className={`w-6 h-6 transform transition-transform duration-500 ${isArabic ? 'rotate-180 group-hover:-translate-x-2' : 'group-hover:translate-x-2'}`} 
-                          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
+                        <span>{isSubmitting ? text.sending : text.btn}</span>
+                        <span className={`w-16 h-[1px] bg-black group-hover:bg-[#f7951e] disabled:bg-gray-400 transition-all duration-300 group-hover:w-24`} />
+                        {!isSubmitting && (
+                          <svg
+                            className={`w-6 h-6 transform transition-transform duration-500 ${isArabic ? 'rotate-180 group-hover:-translate-x-2' : 'group-hover:translate-x-2'}`}
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                          >
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        )}
                     </button>
                 </ScrollBasedAnimation>
 

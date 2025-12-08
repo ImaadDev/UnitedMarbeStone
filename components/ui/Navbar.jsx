@@ -99,6 +99,7 @@ const isHomePage =
       src="/logo.png"
       alt="United Stone Logo"
       fill
+      sizes="(max-width: 768px) 64px, 80px"
       className="object-contain transition-transform duration-300 group-hover:scale-105"
       priority
     />
