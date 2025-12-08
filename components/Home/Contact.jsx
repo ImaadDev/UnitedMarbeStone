@@ -60,7 +60,8 @@ export default function Contact() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          message: `${formData.message}\n\nPhone: ${formData.phone}`,
+          message: formData.message,
+          Phone: formData.phone,
           isArabic
         }),
       });
