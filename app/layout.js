@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/ui/Navbar";
 import LenisProvider from "@/components/ui/LenisProvider";
 import Footer from "@/components/ui/Footer";
+import FixedSocials from "@/components/ui/SocialIcons";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       >
         <LenisProvider/>
         <Navbar/>
+        <FixedSocials/>
         {children}
         <Footer/>
         <LenisProvider/>
