@@ -8,6 +8,10 @@ import Image from "next/image";
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+
+  if(pathname.startsWith("/dashboard")) {
+    return null;
+  }
   
   // Check if current path starts with /ar
   const isArabic = pathname?.startsWith("/ar");
@@ -55,7 +59,9 @@ const isHomePage =
     { nameEn: "Home", nameAr: "الرئيسية", href: isArabic ? "/ar" : "/en" },
     { nameEn: "About", nameAr: "من نحن", href: isArabic ? "/ar/about" : "/en/about" },
     { nameEn: "Services", nameAr: "خدماتنا", href: isArabic ? "/ar/services" : "/en/services" },
-    { nameEn: "Projects", nameAr: "المشاريع", href: "#projects" },
+    { nameEn: "Our Work", nameAr: "المشاريع", href: isArabic ? "/ar/work" : "/en/work" },
+    { nameEn: "Blogs", nameAr: "المدونات", href: isArabic ? "/ar/blogs" : "/en/blogs" },
+    { nameEn: "Contact", nameAr: "تواصل معنا", href: isArabic ? "/ar/contact" : "/en/contact" },
     // { nameEn: "Journal", nameAr: "المقالات", href: "#blog" },
   ];
 
@@ -69,9 +75,9 @@ const isHomePage =
   className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
     isHomePage
       ? isScrolled
-        ? "py-6 bg-[#212930]/90 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-        : "py-6 bg-transparent border-transparent"
-      : "py-6 bg-[#212930]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+        ? "py-5 bg-[#212930]"
+        : "py-5 bg-transparent border-transparent"
+      : "py-5 bg-[#212930] "
   }`}
   dir={isArabic ? "rtl" : "ltr"}
 >
@@ -176,7 +182,7 @@ const isHomePage =
           MOBILE MENU OVERLAY
          ======================= */}
       <div 
-        className={`fixed inset-0 bg-[#111829] z-40 flex flex-col justify-center items-center transition-transform duration-[800ms] ease-[cubic-bezier(0.77,0,0.175,1)] ${
+        className={`fixed inset-0 bg-[#212930] z-40 flex flex-col justify-center items-center transition-transform duration-[800ms] ease-[cubic-bezier(0.77,0,0.175,1)] ${
           mobileMenuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >

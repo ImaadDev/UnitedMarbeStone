@@ -3,10 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ScrollBasedAnimation from "@/components/ui/ScrollBasedAnimation";
+import { isArray } from "sanity";
 
 export default function Footer() {
   const pathname = usePathname();
   const isArabic = pathname?.startsWith("/ar");
+
+  if(pathname.startsWith("/dashboard")) {
+    return null;
+  }
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -141,8 +146,8 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5 text-xs text-gray-600 font-mono uppercase tracking-wider">
            <p>{content.copyright}</p>
            <div className="flex gap-6 mt-4 md:mt-0">
-              <a href="#" className="hover:text-[#f7951e] transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-[#f7951e] transition-colors">Terms of Use</a>
+              <a  href={isArabic ? "/ar/privacy" : "/en/privacy"} className="hover:text-[#f7951e] transition-colors">Privacy Policy</a>
+              <a href={isArabic ? "/ar/terms" : "/en/terms"} className="hover:text-[#f7951e] transition-colors">Terms of Use</a>
            </div>
         </div>
 

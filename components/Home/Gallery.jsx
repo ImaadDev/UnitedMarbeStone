@@ -3,76 +3,51 @@
 import { useState, useEffect, useCallback } from "react";
 import ScrollBasedAnimation from "@/components/ui/ScrollBasedAnimation";
 import { usePathname } from "next/navigation";
+import { client } from "@/sanity/lib/client";
+import imageUrlBuilder from "@sanity/image-url";
 
-// --- DATA STRUCTURE (Expanded with 'gallery' arrays) ---
-const PROJECTS_DATA = [
-  {
-    id: 1,
-    cat: "residential",
-    title_en: "Private Villa - Al Nakheel",
-    title_ar: "فيلا خاصة - حي النخيل",
-    location_en: "Riyadh, KSA",
-    location_ar: "الرياض، السعودية",
-    // Main thumbnail
-    img: "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?auto=compress&cs=tinysrgb&w=1260", 
-    // Full Gallery
-    gallery: [
-      "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      "https://images.pexels.com/photos/2079234/pexels-photo-2079234.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    ]
-  },
-  {
-    id: 2,
-    cat: "commercial",
-    title_en: "Olaya Financial Tower",
-    title_ar: "برج العليا المالي",
-    location_en: "Riyadh, KSA",
-    location_ar: "الرياض، السعودية",
-    img: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260",
-    gallery: [
-      "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      "https://images.pexels.com/photos/323772/pexels-photo-323772.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      "https://images.pexels.com/photos/323775/pexels-photo-323775.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    ]
-  },
-  {
-    id: 3,
-    cat: "residential",
-    title_en: "Modern Yamama Palace",
-    title_ar: "قصر اليمامة الحديث",
-    location_en: "Diriyah, KSA",
-    location_ar: "الدرعية، السعودية",
-    img: "https://images.pexels.com/photos/259962/pexels-photo-259962.jpeg?auto=compress&cs=tinysrgb&w=1260",
-    gallery: [
-      "https://images.pexels.com/photos/259962/pexels-photo-259962.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      "https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    ]
-  },
-  {
-    id: 4,
-    cat: "commercial",
-    title_en: "Grand Hotel Facade",
-    title_ar: "واجهة فندق جراند",
-    location_en: "Jeddah, KSA",
-    location_ar: "جدة، السعودية",
-    img: "https://images.pexels.com/photos/2067638/pexels-photo-2067638.jpeg?auto=compress&cs=tinysrgb&w=1260",
-    gallery: [
-      "https://images.pexels.com/photos/2067638/pexels-photo-2067638.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      "https://images.pexels.com/photos/2067640/pexels-photo-2067640.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      "https://images.pexels.com/photos/2067635/pexels-photo-2067635.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    ]
-  },
-];
+const builder = imageUrlBuilder(client);
+
+function urlFor(source) {
+  return builder.image(source);
+}
 
 export default function Projects() {
   const pathname = usePathname();
   const isArabic = pathname?.startsWith("/ar");
 
   // --- STATE ---
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [selectedProject, setSelectedProject] = useState(null); // Stores the full project object
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  // Fetch projects from Sanity
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const query = `*[_type == "work"] | order(_createdAt desc) {
+          _id,
+          category,
+          title_en,
+          title_ar,
+          location_en,
+          location_ar,
+          thumbnail,
+          gallery
+        }`;
+        const data = await client.fetch(query);
+        setProjects(data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   // --- DERIVED DATA ---
   const text = {
@@ -85,9 +60,9 @@ export default function Projects() {
     close: isArabic ? "إغلاق" : "Close",
   };
 
-  const filteredProjects = filter === "all" 
-    ? PROJECTS_DATA 
-    : PROJECTS_DATA.filter(p => p.cat === filter);
+  const filteredProjects = filter === "all"
+    ? projects
+    : projects.filter(p => p.category === filter);
 
   // --- MODAL LOGIC ---
   
@@ -175,10 +150,19 @@ export default function Projects() {
         </div>
 
         {/* PROJECTS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24">
-          {filteredProjects.map((project, i) => (
-            <div 
-              key={project.id} 
+        {loading ? (
+          <div className="text-center py-20">
+            <div className="text-white/50">{isArabic ? "جاري التحميل..." : "Loading..."}</div>
+          </div>
+        ) : filteredProjects.length === 0 ? (
+          <div className="text-center py-20">
+            <div className="text-white/50 text-xl">{isArabic ? "لا توجد أعمال متاحة" : "No work available"}</div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24">
+            {filteredProjects.map((project, i) => (
+            <div
+              key={project._id}
               className={i % 2 !== 0 ? "md:mt-32" : ""}
             >
               <ScrollBasedAnimation 
@@ -193,7 +177,7 @@ export default function Projects() {
                 >
                   <div className="relative overflow-hidden aspect-[4/3] bg-gray-900 mb-8">
                     <img
-                      src={project.img}
+                      src={urlFor(project.thumbnail).width(800).height(600).url()}
                       alt={isArabic ? project.title_ar : project.title_en}
                       className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[2000ms] ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform"
                       loading="lazy"
@@ -226,8 +210,9 @@ export default function Projects() {
             </div>
           ))}
         </div>
+      )}
 
-        {/* FOOTER CTA */}
+      {/* FOOTER CTA */}
         <div className="mt-32 text-center">
              <ScrollBasedAnimation direction="up" duration={0.6}>
                 <a href="#contact" className="inline-block py-4 px-12 border border-white/20 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black hover:border-white transition-all duration-300">
@@ -281,7 +266,7 @@ export default function Projects() {
           >
             <div className="relative w-full h-full">
                 <img
-                  src={selectedProject.gallery[currentSlideIndex]}
+                  src={urlFor(selectedProject.gallery[currentSlideIndex]).width(1600).url()}
                   alt="Gallery"
                   className="w-full h-full object-contain select-none"
                 />
@@ -308,7 +293,7 @@ export default function Projects() {
                     currentSlideIndex === idx ? "border-[#f7951e] scale-110 opacity-100" : "border-transparent opacity-50 hover:opacity-100"
                  }`}
                >
-                 <img src={img} className="w-full h-full object-cover" alt="thumb" />
+                 <img src={urlFor(img).width(200).height(200).url()} className="w-full h-full object-cover" alt="thumb" />
                </button>
              ))}
           </div>

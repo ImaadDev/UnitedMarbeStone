@@ -7,7 +7,7 @@ const ScrollBasedAnimation = ({
   children,
   threshold = 0.2,
   delay = 0,
-  duration = 0.6,
+  duration = 0.3,
   offset = 60,
   direction = "up",
 }) => {
