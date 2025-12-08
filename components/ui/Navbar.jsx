@@ -23,7 +23,6 @@ const isHomePage =
   pathname === "" ||
   pathname === undefined;
 
-  console.log("Navbar Rendered - Pathname:", pathname);
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

@@ -4,6 +4,7 @@ import Navbar from "@/components/ui/Navbar";
 import LenisProvider from "@/components/ui/LenisProvider";
 import Footer from "@/components/ui/Footer";
 import FixedSocials from "@/components/ui/SocialIcons";
+import SmoothMouseTrail from "@/components/ui/SmoothMouseTrail";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -23,6 +24,11 @@ export default function RootLayout({ children }) {
         className={`${montserrat.variable} antialiased`}
       >
         <LenisProvider/>
+        <SmoothMouseTrail
+        size={18}
+          color="rgba(247, 149, 30, 0.35)" // orange glow for United Stone branding
+          smoothing={0.1}
+        />
         <Navbar/>
         <FixedSocials/>
         {children}
