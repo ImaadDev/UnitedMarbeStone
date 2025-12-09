@@ -17,17 +17,19 @@ export async function generateStaticParams() {
 
 // Fetch blog post data
 async function getBlogPost(slug) {
+  if (!slug || typeof slug !== 'string') {
+    return null;
+  }
+
   const query = `*[_type == "blog" && slug.current == "${slug.replace(/"/g, '\\"')}"]{
     _id,
-    title_en,
     title_ar,
-    excerpt_en,
     excerpt_ar,
-    content_en,
     content_ar,
     featuredImage,
     publishedAt,
-    author
+    author,
+    slug
   }`;
 
   const posts = await client.fetch(query);
@@ -37,6 +39,61 @@ async function getBlogPost(slug) {
   }
 
   return posts[0];
+}
+
+// ⭐ DYNAMIC SEO for each blog
+export async function generateMetadata(props) {
+  const { slug } = await props.params;
+  const post = await getBlogPost(slug);
+
+  if (!post) {
+    return {
+      title: "مقال غير موجود | شركة المتحدة للرخام والحجر",
+      description: "هذه الصفحة غير موجودة",
+      robots: "noindex",
+    };
+  }
+
+  const image =
+    post.featuredImage?.asset?.url ||
+    "https://www.unitedmarblestones.com/og-image.png";
+
+  return {
+    title: `${post.title_ar} | شركة المتحدة للرخام والحجر`,
+    description: post.excerpt_ar || "مدونة عن الرخام والحجر في السعودية",
+
+    alternates: {
+      canonical: `https://www.unitedmarblestones.com/ar/blog/${post.slug.current}`,
+      languages: {
+        "ar-SA": `https://www.unitedmarblestones.com/ar/blog/${post.slug.current}`,
+        "en-US": `https://www.unitedmarblestones.com/en/blog/${post.slug.current}`,
+      },
+    },
+
+    openGraph: {
+      type: "article",
+      locale: "ar_SA",
+      title: post.title_ar,
+      description: post.excerpt_ar,
+      url: `https://www.unitedmarblestones.com/ar/blog/${post.slug.current}`,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: post.title_ar,
+        },
+      ],
+      siteName: "United Marble Stones",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: post.title_ar,
+      description: post.excerpt_ar,
+      images: [image],
+    },
+  };
 }
 
 export default async function Page({ params }) {

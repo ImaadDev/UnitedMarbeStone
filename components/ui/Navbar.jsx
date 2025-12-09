@@ -155,7 +155,7 @@ const isHomePage =
 
             {/* CTA Button */}
             <Link 
-              href="tel:+966555555555"
+              href="tel:+966510783050"
               className="bg-white text-black hover:bg-[#f7951e] hover:text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(247,149,30,0.4)]"
             >
               {isArabic ? "تواصل معنا" : "Contact Us"}

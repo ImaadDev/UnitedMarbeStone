@@ -55,15 +55,15 @@ export default function Services() {
 
   // Images (Shared)
   const images = [
-    "https://images.pexels.com/photos/2529164/pexels-photo-2529164.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/5405587/pexels-photo-5405587.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/129733/pexels-photo-129733.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/1209982/pexels-photo-1209982.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/3626575/pexels-photo-3626575.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/4618654/pexels-photo-4618654.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/3626616/pexels-photo-3626616.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/2893997/pexels-photo-2893997.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "/Stones/WhiteStone.png",
+    "/Stones/YellowStone.png",
+    "/Stones/WoodStyle.png",
+    "/Stones/GreyStone.png",
+    "/Stones/JelStone.png",
+    "/Stones/WhiteCarved.png",
+    "/Stones/YellowCarved.png",
+    "/Stones/SplitFace.png",
+    "/Stones/TibiStone.png",
   ];
 
   return (
@@ -114,7 +114,7 @@ export default function Services() {
                   <img 
                     src={images[i]} 
                     alt={item.name} 
-                    className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-110" 
+                    className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-110" 
                     loading="lazy" 
                   />
                   

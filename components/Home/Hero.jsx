@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 const HERO_IMAGES = [
-  "https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  "https://images.pexels.com/photos/3626575/pexels-photo-3626575.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  "/hero1.png",
+  "/hero2.png",
+  "/hero3.png",
 ];
 
 export default function Hero() {
@@ -111,14 +111,7 @@ export default function Hero() {
           INDICATORS
           ======================= */}
       
-      {/* Scroll Down Arrow */}
-      <div className="absolute bottom-10 z-20 animate-bounce cursor-pointer">
-        <a href="#about" className="text-white/50 hover:text-[#f7951e] transition-colors duration-300">
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </a>
-      </div>
+    
 
       {/* Slider Dots */}
       <div className="absolute bottom-10 right-10 z-20 hidden md:flex flex-col gap-3">

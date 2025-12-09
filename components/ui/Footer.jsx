@@ -31,11 +31,12 @@ export default function Footer() {
   };
 
   const links = [
-    { name: isArabic ? "الرئيسية" : "Home", href: isArabic ? "/ar" : "/" },
-    { name: isArabic ? "من نحن" : "About Us", href: "#about" },
-    { name: isArabic ? "خدماتنا" : "Services", href: "#services" },
-    { name: isArabic ? "المشاريع" : "Projects", href: "#projects" },
-    { name: isArabic ? "تواصل معنا" : "Contact", href: "#contact" },
+    { name: isArabic ? "الرئيسية" : "Home", href: isArabic ? "/ar" : "/en" },
+    { name: isArabic ? "من نحن" : "About Us", href: isArabic ? "/ar/about" : "/en/about" },
+    { name: isArabic ? "خدماتنا" : "Services", href: isArabic ? "/ar/services" : "/en/services" },
+    { name: isArabic ? "المشاريع" : "Projects", href: isArabic ? "/ar/work" : "/en/work" },
+    { name: isArabic ? "تواصل معنا" : "Contact", href: isArabic ? "/ar/contact" : "/en/contact" },
+    { name: isArabic ? "المدونة" : "Blog", href: isArabic ? "/ar/blogs" : "/en/blogs" },
   ];
 
   const socials = [

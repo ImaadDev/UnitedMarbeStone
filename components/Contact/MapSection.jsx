@@ -10,12 +10,13 @@ export default function MapSection() {
   // CONFIGURATION
   const location = {
     label: isArabic ? "موقعنا" : "Our Location",
-    address: isArabic ? "شارع التخصصي، الرياض" : "Takhassusi St, Riyadh",
+    address: isArabic ? "طريق رفاع بن رافع، حي العليا، الرياض" : "Rifah Ibn rafi Street Al Olaya, Riyadh",
     subAddress: isArabic ? "المملكة العربية السعودية" : "Saudi Arabia",
-    googleMapsLink: "https://goo.gl/maps/YourMapLinkHere", // Replace with your actual pin link
+    googleMapsLink: "https://maps.app.goo.gl/TscnDuyfjTDbWwGy8", // Replace with your actual pin link
     // Embed Link: Centered on Takhassusi St, Riyadh
-    embedSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.636637375253!2d46.6749!3d24.7056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sRiyadh%20Saudi%20Arabia!5e0!3m2!1sen!2sus!4v1625641234567!5m2!1sen!2sus"
+    embedSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7250.691018982202!2d46.697953381048585!3d24.680646839192534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f036364148491%3A0x4a9c54fa5f0a8fb6!2zUkhPQTI5MTgsIDI5MTggUmlmYWFoIElibiBSYWZpLCA5MzYx2Iwg2K3ZiiDYp9mE2LnZhNmK2KfYjCBSaXlhZGggMTI2MTE!5e0!3m2!1sen!2ssa!4v1765289418198!5m2!1sen!2ssa"
   };
+
 
   return (
     <section 

@@ -73,9 +73,9 @@ export default function ContactPage() {
     sending: isArabic ? "جاري الإرسال..." : "Sending...",
     success: isArabic ? "تم الإرسال بنجاح!" : "Message sent successfully!",
     error: isArabic ? "حدث خطأ، يرجى المحاولة مرة أخرى" : "Error occurred, please try again",
-    address: isArabic ? "طريق التخصصي، الرياض" : "Takhassusi Rd, Riyadh",
-    contact_email: "info@unitedstone.com",
-    contact_phone: "+966 50 950 2502"
+    address: isArabic ? "طريق التخصصي، الرياضطريق رفاع بن رافع، حي العليا، الرياض" : "Rifah Ibn Rafi Street Al Olaya, Riyadh",
+    contact_email: "info@unitedmarblestones.com",
+    contact_phone: "+966 51 0783050"
   };
 
   return (
