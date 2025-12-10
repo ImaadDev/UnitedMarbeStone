@@ -13,6 +13,9 @@ export async function getServices() {
       "slug": slug.current,
       featuredImage{
         asset->{url}
+      },
+      gallery[] {
+        asset->{url}
       }
     }
   `;

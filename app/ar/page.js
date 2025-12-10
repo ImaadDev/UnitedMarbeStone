@@ -6,6 +6,8 @@ import Gallery from "@/components/Home/Gallery";
 import Blogs from "@/components/Home/Blogs";
 import Contact from "@/components/Home/Contact";
 import CTASection from "@/components/Home/CTA";
+import StoneCollection from "@/components/Home/StoneCollection";
+import Installation from "@/components/Home/Installation";
 
 export const metadata = {
   title: "شركة المتحدة للرخام والحجر في السعودية | توريد وتركيب الرخام والجرانيت",
@@ -109,7 +111,9 @@ export default function Home() {
 
       <Hero />
       <About />
+      <StoneCollection />
       <Services />
+      <Installation />
       <Gallery />
       <Blogs />
       <Contact />

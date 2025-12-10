@@ -56,7 +56,7 @@ export default function CTASection() {
 
           {/* Button: Performance Optimized */}
           <Link
-            href={isArabic ? "/ar/contact" : "/contact"}
+            href='https://wa.me/966510783050'
             className="group relative inline-flex items-center justify-center gap-4 px-12 py-5 bg-[#050505] text-white font-bold text-sm uppercase tracking-[0.2em] rounded-full transition-transform duration-300 hover:scale-105 hover:shadow-lg"
           >
             {/* Button Text */}

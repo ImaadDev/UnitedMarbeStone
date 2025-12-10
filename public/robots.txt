@@ -1,0 +1,13 @@
+# Allow all public pages
+User-agent: *
+Allow: /
+
+# Block dashboards and admin pages
+Disallow: /dashboard
+Disallow: /admin
+
+# Host
+Host: https://www.unitedmarblestones.com
+
+# Sitemap
+Sitemap: https://www.unitedmarblestones.com/sitemap.xml

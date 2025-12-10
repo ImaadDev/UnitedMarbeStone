@@ -56,7 +56,7 @@ export default function Projects() {
     all: isArabic ? "الكل" : "All",
     residential: isArabic ? "سكني" : "Residential",
     commercial: isArabic ? "تجارـي" : "Commercial",
-    viewCase: isArabic ? "عرض المشروع" : "View Case Study",
+    viewCase: isArabic ? "عرض جميع المعرض" : "View All Gallery",
     close: isArabic ? "إغلاق" : "Close",
   };
 
@@ -215,7 +215,7 @@ export default function Projects() {
       {/* FOOTER CTA */}
         <div className="mt-32 text-center">
              <ScrollBasedAnimation direction="up" duration={0.6}>
-                <a href="#contact" className="inline-block py-4 px-12 border border-white/20 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+                <a href={isArabic ? '/ar/gallery' : '/en/gallery'} className="inline-block py-4 px-12 border border-white/20 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black hover:border-white transition-all duration-300">
                     {text.viewCase}
                 </a>
              </ScrollBasedAnimation>

@@ -101,7 +101,7 @@ export default function AboutPage() {
                
                <div className="aspect-[4/5] w-full overflow-hidden bg-gray-200">
                  <img 
-                   src="https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=1260" 
+                   src="/About/buildingLegacy.png" 
                    alt="Marble Workshop"
                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2000ms] ease-out will-change-transform"
                    loading="eager"
@@ -185,7 +185,7 @@ export default function AboutPage() {
             <ScrollBasedAnimation direction="up" duration={0.8} className="order-last lg:order-first">
                <div className="relative aspect-video lg:aspect-square overflow-hidden bg-gray-800">
                   <img 
-                    src="https://images.pexels.com/photos/3626575/pexels-photo-3626575.jpeg?auto=compress&cs=tinysrgb&w=1260" 
+                    src="/About/Future.png" 
                     alt="United Stone Vision"
                     className="w-full h-full object-cover opacity-80"
                     loading="lazy"
@@ -264,7 +264,7 @@ export default function AboutPage() {
                    <div className="relative aspect-video lg:aspect-square overflow-hidden bg-gray-900 border-l border-white/10">
                       <img 
                         // Using a raw material/quarry image to contrast the finished building above
-                        src="https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg?auto=compress&cs=tinysrgb&w=1260" 
+                        src="/About/Standard.png" 
                         alt="Stone Quality Control"
                         className="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-[2000ms] ease-out will-change-transform"
                         loading="lazy"
@@ -273,11 +273,7 @@ export default function AboutPage() {
                       {/* Dark Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
                       
-                      {/* Image Label */}
-                      <div className="absolute bottom-8 left-8">
-                         <p className="font-mono text-xs text-white/50 uppercase tracking-widest mb-1">Source</p>
-                         <p className="text-lg font-medium text-white">Carrara, Italy</p>
-                      </div>
+                      
                    </div>
 
                    {/* Decorative Element - Floating Line */}
@@ -306,7 +302,7 @@ export default function AboutPage() {
                    <div className="relative aspect-[4/5] lg:aspect-square overflow-hidden bg-gray-900">
                       <img 
                         // High-tech/Industrial stone cutting or facade detail
-                        src="https://images.pexels.com/photos/129733/pexels-photo-129733.jpeg?auto=compress&cs=tinysrgb&w=1260" 
+                        src="/About/Engineer.png" 
                         alt="Precision Engineering"
                         className="w-full h-full object-cover opacity-70 hover:scale-105 transition-transform duration-[2000ms] ease-out will-change-transform"
                         loading="lazy"

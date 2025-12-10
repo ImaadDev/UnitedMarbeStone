@@ -3,7 +3,6 @@ import React from "react";
 import ServiceDetails from "@/components/Services/ServiceDetails";
 import { getServiceBySlug } from "@/services/getServices";
 import { notFound } from "next/navigation";
-import ServiceDetails from "@/components/Services/ServiceDetails";
 
 // ⭐ Dynamic SEO Metadata
 export async function generateMetadata(props) {

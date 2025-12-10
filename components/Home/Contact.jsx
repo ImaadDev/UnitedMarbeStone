@@ -37,7 +37,7 @@ export default function Contact() {
 
     // Contact Info
     address_label: isArabic ? "العنوان" : "Location",
-    address: isArabic ? "شارع التخصصي، الرياض، المملكة العربية السعودية" : "Takhassusi St, Riyadh, Saudi Arabia",
+    address: isArabic ? "شارع رفاعة بن رافع، العليا، الرياض، المملكة العربية السعودية" : "Rifah Ibn Rafi St, Al Olaya, Riyadh, Saudi Arabia",
     phone_label: isArabic ? "الهاتف" : "Phone",
     email_label: isArabic ? "البريد" : "Email",
   };
@@ -136,7 +136,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <span className="block text-xs font-mono text-gray-500 uppercase tracking-widest mb-1">{text.phone_label}</span>
-                      <a href="tel:+966509502502" className="text-lg text-white hover:text-[#f7951e] transition-colors">+966 50 950 2502</a>
+                      <a href="tel:+966510783050" className="text-lg text-white hover:text-[#f7951e] transition-colors">+966 51 0783050</a>
                     </div>
                   </div>
                </ScrollBasedAnimation>
@@ -148,7 +148,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <span className="block text-xs font-mono text-gray-500 uppercase tracking-widest mb-1">{text.email_label}</span>
-                      <a href="mailto:info@unitedstone.com" className="text-lg text-white hover:text-[#f7951e] transition-colors">info@unitedstone.com</a>
+                      <a href="mailto:info@unitedmarblestones.com" className="text-lg text-white hover:text-[#f7951e] transition-colors">info@unitedmarblestones.com</a>
                     </div>
                   </div>
                </ScrollBasedAnimation>
@@ -160,7 +160,7 @@ export default function Contact() {
             <div className="relative w-full h-64 bg-gray-900 rounded-sm overflow-hidden border border-white/10 group">
                {/* Note: Invert + Grayscale makes the map dark and classy */}
                <iframe 
-                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.697472304987!2d46.6752!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQyJzQ5LjAiTiA0NsKwNDAnMzAuNyJF!5e0!3m2!1sen!2ssa!4v1620000000000!5m2!1sen!2ssa"
+                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7250.691018982202!2d46.697953381048585!3d24.680646839192534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f036364148491%3A0x4a9c54fa5f0a8fb6!2zUkhPQTI5MTgsIDI5MTggUmlmYWFoIElibiBSYWZpLCA5MzYx2Iwg2K3ZiiDYp9mE2LnZhNmK2KfYjCBSaXlhZGggMTI2MTE!5e0!3m2!1sen!2ssa!4v1765289418198!5m2!1sen!2ssa"
                  width="100%" 
                  height="100%" 
                  style={{ border: 0, filter: "grayscale(100%) invert(90%) contrast(85%)" }} 
@@ -171,7 +171,7 @@ export default function Contact() {
                
                {/* Map Overlay Button */}
                <a 
-                 href="https://maps.google.com" 
+                 href="https://maps.app.goo.gl/TscnDuyfjTDbWwGy8" 
                  target="_blank" 
                  className="absolute bottom-4 left-4 bg-[#f7951e] text-white text-xs font-bold px-4 py-2 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                >

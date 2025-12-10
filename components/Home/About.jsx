@@ -38,7 +38,7 @@ export default function About() {
     {/* Main Image */}
     <div className="relative aspect-[4/5] overflow-hidden rounded-sm will-change-transform">
       <Image
-        src="https://images.pexels.com/photos/4249940/pexels-photo-4249940.jpeg"
+        src="/About.png"
         alt="Marble Architecture"
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
