@@ -12,11 +12,11 @@ const Installation = () => {
     
     // CONTENT DATA (Unchanged)
     const content = {
-      serviceTitle: isArabic ? "التركيب والتصميم" : "Installation & Design",
+      serviceTitle: isArabic ? " توريد و تركيب و تصميم " : "Supply, installation and design",
       serviceSubtitle: isArabic ? "الخبرة التقنية" : "Technical Expertise",
       servicesList: isArabic
         ? [
-            "توريـد وتركيب حجر نساك",
+            "توريـد وتركيب حجر نساح",
             "تركيب نخب أول (درجة ممتازة)",
             "نظام التثبيت الميكانيكي (الجاف)",
             "تصميم واجهات حجرية مخصصة",
