@@ -1,5 +1,8 @@
 import { client } from "@/sanity/lib/client";
 
+// 🔄 Revalidate every 60 seconds
+const REVALIDATE_TIME = 60;
+
 export async function getWork() {
   const query = `
     *[_type == "work"] | order(_createdAt desc) {
@@ -13,7 +16,7 @@ export async function getWork() {
     }
   `;
 
-  return await client.fetch(query);
+  return await client.fetch(query, {}, { next: { revalidate: REVALIDATE_TIME } });
 }
 
 export async function getWorkById(id) {
@@ -31,5 +34,9 @@ export async function getWorkById(id) {
     }
   `;
 
-  return await client.fetch(query, { id });
+  return await client.fetch(
+    query,
+    { id },
+    { next: { revalidate: REVALIDATE_TIME } }
+  );
 }

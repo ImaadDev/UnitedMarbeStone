@@ -1,5 +1,8 @@
 import { client } from "@/sanity/lib/client";
 
+// 🔄 Revalidate every 60 seconds (you can adjust later)
+const REVALIDATE_TIME = 60;
+
 export async function getServices() {
   const query = `
     *[_type == "service"] | order(_createdAt desc) {
@@ -20,9 +23,8 @@ export async function getServices() {
     }
   `;
 
-  return await client.fetch(query);
+  return await client.fetch(query, {}, { next: { revalidate: REVALIDATE_TIME } });
 }
-
 
 export async function getServiceBySlug(slug) {
   if (!slug) return null;
@@ -58,6 +60,9 @@ export async function getServiceBySlug(slug) {
     }
   `;
 
-  return await client.fetch(query, { slug });
+  return await client.fetch(
+    query,
+    { slug },
+    { next: { revalidate: REVALIDATE_TIME } }
+  );
 }
-
