@@ -119,7 +119,7 @@ export default function CreativeServicePage({ service }) {
            </RevealText>
            
            <RevealText delay={0.2} className="mb-6">
-             <h1 className="text-6xl md:text-9xl font-bold text-white uppercase tracking-tight leading-[0.9]">
+             <h1 className="text-4xl md:text-7xl font-bold text-white uppercase tracking-tight leading-[0.9]">
                {content.title}
              </h1>
            </RevealText>
