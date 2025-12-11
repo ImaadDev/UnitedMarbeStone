@@ -5,6 +5,7 @@ import ScrollBasedAnimation from "@/components/ui/ScrollBasedAnimation";
 import { usePathname } from "next/navigation";
 import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
+import Image from "next/image"; // IMPORT ADDED
 
 const builder = imageUrlBuilder(client);
 
@@ -20,7 +21,7 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
-  const [selectedProject, setSelectedProject] = useState(null); // Stores the full project object
+  const [selectedProject, setSelectedProject] = useState(null); 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   // Fetch projects from Sanity
@@ -69,7 +70,6 @@ export default function Projects() {
   const openModal = (project) => {
     setSelectedProject(project);
     setCurrentSlideIndex(0);
-    // Prevent background scrolling
     document.body.style.overflow = "hidden";
   };
 
@@ -176,16 +176,17 @@ export default function Projects() {
                   onClick={() => openModal(project)}
                 >
                   <div className="relative overflow-hidden aspect-[4/3] bg-gray-900 mb-8">
-                    <img
-                      src={urlFor(project.thumbnail).width(800).height(600).url()}
+                    <Image
+                      src={urlFor(project.thumbnail).url()}
                       alt={isArabic ? project.title_ar : project.title_en}
-                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[2000ms] ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform"
-                      loading="lazy"
+                      fill
+                      className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[2000ms] ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none" />
                     
                     {/* View Gallery Icon Overlay */}
-                    <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
                         <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                         </svg>
@@ -265,10 +266,13 @@ export default function Projects() {
             onClick={(e) => e.stopPropagation()} // Prevent clicking image from closing modal
           >
             <div className="relative w-full h-full">
-                <img
-                  src={urlFor(selectedProject.gallery[currentSlideIndex]).width(1600).url()}
+                <Image
+                  src={urlFor(selectedProject.gallery[currentSlideIndex]).url()}
                   alt="Gallery"
-                  className="w-full h-full object-contain select-none"
+                  fill
+                  className="object-contain select-none"
+                  priority={true} // Priority loading for the main lightbox image
+                  sizes="100vw"
                 />
             </div>
             
@@ -289,11 +293,18 @@ export default function Projects() {
                <button
                  key={idx}
                  onClick={() => setCurrentSlideIndex(idx)}
-                 className={`w-16 h-16 md:w-20 md:h-20 flex-shrink-0 border-2 transition-all duration-300 ${
+                 // Added 'relative' here to support Image fill
+                 className={`relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0 border-2 transition-all duration-300 ${
                     currentSlideIndex === idx ? "border-[#f7951e] scale-110 opacity-100" : "border-transparent opacity-50 hover:opacity-100"
                  }`}
                >
-                 <img src={urlFor(img).width(200).height(200).url()} className="w-full h-full object-cover" alt="thumb" />
+                 <Image 
+                   src={urlFor(img).width(200).height(200).url()} 
+                   fill
+                   className="object-cover" 
+                   alt="thumb" 
+                   sizes="100px"
+                 />
                </button>
              ))}
           </div>

@@ -5,6 +5,7 @@ import ScrollBasedAnimation from "@/components/ui/ScrollBasedAnimation";
 import { usePathname } from "next/navigation";
 import { getServices } from "@/services/getServices";
 import Link from "next/link";
+import Image from "next/image"; // IMPORT ADDED
 
 export default function Services() {
   const pathname = usePathname();
@@ -80,11 +81,12 @@ export default function Services() {
 
                     {/* Image Layer */}
                     {item.image && (
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.name}
-                        className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105"
-                        loading="lazy"
+                        fill
+                        className="object-cover transition-all duration-700 ease-out group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 33vw"
                       />
                     )}
 

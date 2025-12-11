@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
+import Image from "next/image"; // IMPORT ADDED
 
 const builder = imageUrlBuilder(client);
 
@@ -105,15 +106,15 @@ export default function Blog() {
 
                     {/* IMAGE (Cinematic Reveal) */}
                     <div className="relative overflow-hidden aspect-[16/10] bg-gray-100 mb-8">
-                      <img
-                        src={urlFor(post.featuredImage).width(800).height(500).url()}
+                      <Image
+                        src={urlFor(post.featuredImage).url()}
                         alt={isArabic ? post.title_ar : post.title_en}
-                        // Slow zoom for premium feel
-                        className="w-full h-full object-cover transition-transform duration-[1500ms] ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform group-hover:scale-105"
-                        loading="lazy"
+                        fill
+                        className="object-cover transition-transform duration-[1500ms] ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       {/* Subtle orange flash on hover */}
-                      <div className="absolute inset-0 bg-[#f7951e] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-[#f7951e] opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
                     </div>
 
                     {/* META INFO (Clean Line) */}

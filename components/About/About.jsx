@@ -2,6 +2,7 @@
 
 import ScrollBasedAnimation from "@/components/ui/ScrollBasedAnimation";
 import { usePathname } from "next/navigation";
+import Image from "next/image"; // IMPORT ADDED
 
 export default function AboutPage() {
   const pathname = usePathname();
@@ -99,12 +100,15 @@ export default function AboutPage() {
                {/* Gray backdrop for depth without shadow */}
                <div className={`absolute top-0 w-full h-full bg-gray-100 -z-10 ${isArabic ? 'right-8 translate-y-8' : 'left-8 translate-y-8'}`} />
                
-               <div className="aspect-[4/5] w-full overflow-hidden bg-gray-200">
-                 <img 
+               {/* Added 'relative' here for Next.js Image fill */}
+               <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-200">
+                 <Image 
                    src="/About/buildingLegacy.png" 
                    alt="Marble Workshop"
-                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2000ms] ease-out will-change-transform"
-                   loading="eager"
+                   fill
+                   className="object-cover hover:scale-105 transition-transform duration-[2000ms] ease-out will-change-transform"
+                   priority
+                   sizes="(max-width: 768px) 100vw, 50vw"
                  />
                </div>
             </ScrollBasedAnimation>
@@ -184,16 +188,17 @@ export default function AboutPage() {
             {/* Image */}
             <ScrollBasedAnimation direction="up" duration={0.8} className="order-last lg:order-first">
                <div className="relative aspect-video lg:aspect-square overflow-hidden bg-gray-800">
-                  <img 
+                  <Image 
                     src="/About/Future.png" 
                     alt="United Stone Vision"
-                    className="w-full h-full object-cover opacity-80"
-                    loading="lazy"
+                    fill
+                    className="object-cover opacity-80"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                   {/* Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10" />
                   
-                  <div className="absolute bottom-8 left-8 right-8">
+                  <div className="absolute bottom-8 left-8 right-8 z-20">
                      <p className="font-mono text-xs text-[#f7951e] uppercase tracking-widest mb-2">Since 1996</p>
                      <p className="text-xl font-medium">Riyadh, Saudi Arabia</p>
                   </div>
@@ -262,16 +267,17 @@ export default function AboutPage() {
                 <ScrollBasedAnimation direction="up" duration={0.8} delay={0.2}>
                    {/* Architectural Frame */}
                    <div className="relative aspect-video lg:aspect-square overflow-hidden bg-gray-900 border-l border-white/10">
-                      <img 
+                      <Image 
                         // Using a raw material/quarry image to contrast the finished building above
                         src="/About/Standard.png" 
                         alt="Stone Quality Control"
-                        className="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-[2000ms] ease-out will-change-transform"
-                        loading="lazy"
+                        fill
+                        className="object-cover opacity-80 hover:scale-105 transition-transform duration-[2000ms] ease-out will-change-transform"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                       />
                       
                       {/* Dark Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 z-10" />
                       
                       
                    </div>
@@ -300,12 +306,13 @@ export default function AboutPage() {
                 <ScrollBasedAnimation direction="up" duration={0.8}>
                    {/* Main Image Block */}
                    <div className="relative aspect-[4/5] lg:aspect-square overflow-hidden bg-gray-900">
-                      <img 
+                      <Image 
                         // High-tech/Industrial stone cutting or facade detail
                         src="/About/Engineer.png" 
                         alt="Precision Engineering"
-                        className="w-full h-full object-cover opacity-70 hover:scale-105 transition-transform duration-[2000ms] ease-out will-change-transform"
-                        loading="lazy"
+                        fill
+                        className="object-cover opacity-70 hover:scale-105 transition-transform duration-[2000ms] ease-out will-change-transform"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                       />
                       
                       {/* Technical Overlay Grid - Adds "Engineering" feel */}
@@ -356,7 +363,7 @@ export default function AboutPage() {
 
          </div>
       </section>
-
+ 
     </div>
   );
 }

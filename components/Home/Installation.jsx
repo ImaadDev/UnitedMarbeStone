@@ -10,7 +10,7 @@ const Installation = () => {
     const isArabic = pathname?.startsWith("/ar");
     const [hoveredIndex, setHoveredIndex] = useState(null);
     
-    // CONTENT DATA (Unchanged)
+    // CONTENT DATA
     const content = {
       serviceTitle: isArabic ? " توريد و تركيب و تصميم " : "Supply, installation and design",
       serviceSubtitle: isArabic ? "الخبرة التقنية" : "Technical Expertise",
@@ -31,7 +31,7 @@ const Installation = () => {
           ]
     };
 
-    // ANIMATION VARIANTS (Unchanged for smooth motion)
+    // ANIMATION VARIANTS
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -50,9 +50,10 @@ const Installation = () => {
     };
 
   return (
-    <section className="relative w-full py-24 overflow-hidden bg-white">
-        {/* Removed Decorative Background Blur */}
-
+    <section 
+        className="relative w-full py-24 overflow-hidden bg-white"
+        dir={isArabic ? "rtl" : "ltr"}
+    >
         <div className="container mx-auto px-6 md:px-12 lg:px-16">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             
@@ -67,12 +68,11 @@ const Installation = () => {
                     className={`order-2 ${isArabic ? 'lg:order-2' : 'lg:order-1'}`}
                 >
                     <motion.div variants={itemVariants} className="mb-10">
-                        {/* Removed rounded-full */}
                         <span className="inline-block py-1 px-3 bg-orange-50 text-[#f7951e] font-bold uppercase tracking-wider text-[10px] md:text-xs mb-4">
-                        {content.serviceSubtitle}
+                            {content.serviceSubtitle}
                         </span>
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1]">
-                        {content.serviceTitle}
+                            {content.serviceTitle}
                         </h2>
                     </motion.div>
 
@@ -85,7 +85,7 @@ const Installation = () => {
                                 onMouseLeave={() => setHoveredIndex(null)}
                                 className="relative group cursor-pointer border-b border-gray-100"
                             >
-                                {/* Hover Card Background - Removed rounded-xl */}
+                                {/* Hover Card Background */}
                                 <motion.div 
                                     className="absolute inset-0 bg-gray-50 -z-10"
                                     initial={{ opacity: 0, scaleY: 0.9 }}
@@ -98,7 +98,7 @@ const Installation = () => {
 
                                 <div className="p-5 flex items-center justify-between">
                                     <div className="flex items-center gap-5">
-                                        {/* Animated Square Point - Changed rounded-full to rounded-none (square) */}
+                                        {/* Animated Square Point */}
                                         <div className={`w-1.5 h-1.5 rounded-none transition-colors duration-300 ${hoveredIndex === i ? 'bg-[#f7951e]' : 'bg-gray-300'}`} />
                                         
                                         <h3 className={`text-lg md:text-xl font-medium transition-colors duration-300 ${hoveredIndex === i ? 'text-gray-900' : 'text-gray-500'}`}>
@@ -132,23 +132,21 @@ const Installation = () => {
                     viewport={{ once: true }}
                     className={`relative h-[500px] lg:h-[600px] w-full order-1 ${isArabic ? 'lg:order-1' : 'lg:order-2'}`}
                 >
-                    {/* Abstract Decoration Border - Sharpened */}
+                    {/* Abstract Decoration Border */}
                     <div className={`absolute top-4 bottom-4 w-full border border-[#f7951e] z-0 ${isArabic ? 'right-4' : 'left-4'}`} />
 
-                    {/* Main Image Container - Removed rounded-2xl and shadow-2xl */}
+                    {/* Main Image Container */}
                     <div className="relative h-full w-full overflow-hidden bg-gray-100 z-10">
-                        {/* Removed gradient overlay for a cleaner look */}
-                        
                         <Image 
-                            src="https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260" 
+                            src="https://images.pexels.com/photos/4250578/pexels-photo-4250578.jpeg" 
                             alt="Facade Installation" 
                             fill
-                            sizes="(max-width: 768px) 100vw, 50vw"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
                             className="object-cover transition-transform duration-[2s] hover:scale-105"
                             priority={false} 
                         />
 
-                        {/* Floating Badge - Removed blur, shadows, and rounded corners. Added a clean border. */}
+                        {/* Floating Badge */}
                         <motion.div 
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}

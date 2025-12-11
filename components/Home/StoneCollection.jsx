@@ -2,6 +2,7 @@
 
 import ScrollBasedAnimation from "@/components/ui/ScrollBasedAnimation";
 import { usePathname } from "next/navigation";
+import Image from "next/image"; // IMPORT ADDED
 
 export default function StoneCollection() {
   const pathname = usePathname();
@@ -95,11 +96,12 @@ export default function StoneCollection() {
               <div className="group relative w-full aspect-[4/5] md:aspect-square border-r border-b border-neutral-200 overflow-hidden bg-neutral-100">
                 
                 {/* IMAGE */}
-                <img
+                <Image
                   src={images[i]}
                   alt={item.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-[0.25,1,0.5,1] group-hover:scale-110"
-                  loading="lazy"
+                  fill
+                  className="object-cover transition-transform duration-1000 ease-[0.25,1,0.5,1] group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
 
                 {/* OVERLAY */}

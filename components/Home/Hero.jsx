@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image"; // IMPORT ADDED
 
 const HERO_IMAGES = [
   "/hero1.png",
@@ -46,11 +47,14 @@ export default function Hero() {
                 isActive ? "opacity-100 scale-105 z-10" : "opacity-0 scale-100 z-0"
               }`}
             >
-              <img 
+              <Image 
                 src={img} 
-                className="w-full h-full object-cover" 
                 alt="Hero bg" 
-                loading={index === 0 ? "eager" : "lazy"}
+                fill
+                className="object-cover"
+                // Prioritize the first image for LCP, others load normally
+                priority={index === 0}
+                sizes="100vw"
               />
               {/* Single blended overlay for performance */}
               <div className="absolute inset-0 bg-black/40" />
