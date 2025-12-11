@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { gtmEvent } from "@/components/GtmEvent";
 
 const SOCIAL_LINKS = [
   // 1. THE TRIGGER (The "Connect" Icon) - Stays at the bottom
@@ -67,6 +68,15 @@ export default function FixedSocials() {
     setIsOpen(!isOpen);
   };
 
+  const handleWhatsAppClick = () => {
+    gtmEvent("whatsapp_click", {
+      event_category: "engagement",
+      event_label: "WhatsApp Icon Clicked",
+      phone_number: "+966510783050"
+
+    })
+  }
+
   return (
     // Container: Fixed bottom right
     <div className="fixed bottom-8 right-8 z-[100] flex flex-col-reverse items-center gap-3">
@@ -106,6 +116,11 @@ export default function FixedSocials() {
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => {
+            if(link.name === 'WhatsApp'){
+              handleWhatsAppClick();
+            }
+          }}
           // Conditional classes based on 'isOpen'
           className={`
             relative w-12 h-12 rounded-full bg-[#212930] border border-white/10 text-gray-400 flex items-center justify-center 

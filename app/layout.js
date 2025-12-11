@@ -5,6 +5,10 @@ import LenisProvider from "@/components/ui/LenisProvider";
 import Footer from "@/components/ui/Footer";
 import FixedSocials from "@/components/ui/SocialIcons";
 import SmoothMouseTrail from "@/components/ui/SmoothMouseTrail";
+import GTM from "@/components/GTM";
+
+
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -23,6 +27,7 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning={true}
         className={`${montserrat.variable} antialiased`}
       >
+        <GTM gtmId={GTM_ID}/>
         <LenisProvider/>
         <SmoothMouseTrail
         size={18}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { gtmEvent } from "@/components/GtmEvent";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -12,6 +13,20 @@ export default function Navbar() {
   if(pathname.startsWith("/dashboard")) {
     return null;
   }
+
+  // --- HANDLE CALL CLICK EVENT FOR GTM ---
+  const handleCallClick = () => {
+    gtmEvent("call_click", {
+      event_category: "engagement",
+      event_label: "Call Us Clicked",
+      phone_number: "+966510783050"
+    });
+  }
+
+
+
+  
+  
   
   // Check if current path starts with /ar
   const isArabic = pathname?.startsWith("/ar");
@@ -155,6 +170,7 @@ const isHomePage =
 
             {/* CTA Button */}
             <Link 
+              onClick={handleCallClick}
               href="tel:+966510783050"
               className="bg-white text-black hover:bg-[#f7951e] hover:text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(247,149,30,0.4)]"
             >
