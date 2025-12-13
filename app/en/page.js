@@ -113,10 +113,10 @@ export default function Home() {
 
       <Hero />
       <About />
-      <StoneCollection />
-      <Services />
-      <Installation />
       <Gallery />
+      <Services />
+       <StoneCollection />
+      <Installation />
       <Blogs />
       <Contact />
       <CTASection />
